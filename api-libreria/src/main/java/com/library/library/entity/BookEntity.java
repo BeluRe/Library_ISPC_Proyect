@@ -1,0 +1,35 @@
+package com.library.library.entity;
+
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.*;
+import java.time.LocalDate;
+
+@Entity
+@Table(name = "book")
+@Getter
+@Setter
+@SQLDelete(sql = "UPDATE book SET deleted = true WHERE id = ? ")
+@Where(clause = "deleted=false")
+public class BookEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long id;
+    private String title;
+    @DateTimeFormat(pattern = "yyyy/MM/dd")
+    private LocalDate date;
+    private String author;
+    private String category;
+    private String edit;
+    private String lang;
+    private String pages;
+    private String description;
+    private String copy;
+    private Integer stock;
+    private Integer available;
+    private Boolean deleted;
+}
