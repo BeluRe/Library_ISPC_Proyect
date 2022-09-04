@@ -2,8 +2,8 @@ package com.library.library.dto;
 
 import lombok.Getter;
 import lombok.Setter;
-
 import java.time.LocalDate;
+import java.util.List;
 @Getter
 @Setter
 public class BookDTO {
@@ -20,4 +20,5 @@ public class BookDTO {
     private Integer stock;
     private Integer available;
     private Boolean deleted;
+    private List<LendingBasicDTO> lendings;
 }

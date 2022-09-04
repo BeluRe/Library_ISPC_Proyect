@@ -5,17 +5,17 @@ import lombok.Setter;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.*;
 import java.time.LocalDate;
-
+import java.util.ArrayList;
+import java.util.List;
 @Entity
 @Table(name = "book")
 @Getter
 @Setter
 @SQLDelete(sql = "UPDATE book SET deleted = true WHERE id = ? ")
 @Where(clause = "deleted=false")
-public class BookEntity {
+public class BookEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
@@ -32,4 +32,6 @@ public class BookEntity {
     private Integer stock;
     private Integer available;
     private Boolean deleted;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "book")
+    private List<LendingEntity> lendings = new ArrayList<>();
 }

@@ -5,19 +5,18 @@ import lombok.Setter;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.*;
-import java.io.Serializable;
 import java.time.LocalDate;
-
 @Entity
-@Table(name="user_book")
+@Table(name="lending")
 @Getter
 @Setter
 @SQLDelete(sql = "UPDATE user_book SET deleted = true WHERE id = ? ")
 @Where(clause = "deleted=false")
-@IdClass(UserBookEntity.class)
-public class UserBookEntity implements Serializable {
+public class LendingEntity{
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long id;
     @Column(name = "date_out")
     @DateTimeFormat(pattern = "yyyy/MM/dd")
     private LocalDate dateOut;
@@ -25,16 +24,14 @@ public class UserBookEntity implements Serializable {
     @DateTimeFormat(pattern = "yyyy/MM/dd")
     private LocalDate dateReturn;
     private Boolean deleted;
-    @Id
+    @Column(name="user_id", nullable = false)
     private Long userId;
-    @Id
+    @Column(name="book_id", nullable = false)
     private Long bookId;
-
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-    @JoinColumn(name = "userId", referencedColumnName = "id" ,insertable = false, updatable = false)
+    @JoinColumn(name = "user_id", insertable = false, updatable = false)
     private UserEntity user;
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-    @JoinColumn(name = "bookId", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "book_id", insertable = false, updatable = false)
     private BookEntity book;
-
 }

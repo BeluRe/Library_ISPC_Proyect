@@ -1,9 +1,8 @@
 package com.library.library.repository;
 
-import com.library.library.entity.UserBookEntity;
+import com.library.library.entity.LendingEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
 @Repository
-public interface UserBookRepository extends JpaRepository<UserBookEntity, Long> {
+public interface LendingRepository extends JpaRepository<LendingEntity, Long> {
 }

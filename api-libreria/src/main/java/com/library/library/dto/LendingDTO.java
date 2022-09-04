@@ -7,12 +7,13 @@ import lombok.Setter;
 import java.time.LocalDate;
 @Getter
 @Setter
-public class UserBookDTO {
+public class LendingDTO {
+    private Long id;
     private LocalDate dateOut;
     private LocalDate dateReturn;
     private Boolean deleted;
-    //private UserEntity user;
-    //private BookEntity book;
     private Long userId;
     private Long bookId;
+    private UserEntity user;
+    private BookEntity book;
 }

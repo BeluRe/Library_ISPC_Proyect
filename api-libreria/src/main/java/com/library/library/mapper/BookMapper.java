@@ -1,11 +1,15 @@
 package com.library.library.mapper;
 
 import com.library.library.dto.BookDTO;
+import com.library.library.dto.LendingBasicDTO;
 import com.library.library.entity.BookEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
+import java.util.List;
 @Component
 public class BookMapper {
+    @Autowired
+    private LendingMapper lendingMapper;
     public BookEntity bookDTO2Entity(BookDTO dto){
         BookEntity entity = new BookEntity();
         entity.setTitle(dto.getTitle());
@@ -22,7 +26,7 @@ public class BookMapper {
         entity.setDeleted(dto.getDeleted());
         return entity;
     }
-    public BookDTO bookEntity2DTO(BookEntity entity){
+    public BookDTO bookEntity2DTO(BookEntity entity, Boolean loadLendigns){
         BookDTO dto = new BookDTO();
         dto.setId(entity.getId());
         dto.setTitle(entity.getTitle());
@@ -37,6 +41,10 @@ public class BookMapper {
         dto.setStock(entity.getStock());
         dto.setAvailable(entity.getAvailable());
         dto.setDeleted(entity.getDeleted());
+        if(loadLendigns){
+            List<LendingBasicDTO> dtos = lendingMapper.lendingEntityList2BasicDTOList(entity.getLendings());
+            dto.setLendings(dtos);
+        }
         return dto;
     }
     public BookEntity update(BookEntity entity, BookDTO dto){
