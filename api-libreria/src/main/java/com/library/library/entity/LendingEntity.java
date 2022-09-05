@@ -7,11 +7,12 @@ import org.hibernate.annotations.Where;
 import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 @Entity
 @Table(name="lending")
 @Getter
 @Setter
-@SQLDelete(sql = "UPDATE user_book SET deleted = true WHERE id = ? ")
+@SQLDelete(sql = "UPDATE lending SET deleted = true WHERE id = ? ")
 @Where(clause = "deleted=false")
 public class LendingEntity{
     @Id

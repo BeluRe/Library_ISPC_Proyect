@@ -13,7 +13,7 @@ public class LendingMapper {
     public LendingEntity usboDTO2Entity(LendingDTO dto, UserEntity user, BookEntity book){
         LendingEntity entity = new LendingEntity();
         entity.setDateOut(dto.getDateOut());
-        entity.setDateReturn(dto.getDateReturn());
+        entity.setDateReturn(entity.getDateOut().plusDays(15));
         entity.setDeleted(dto.getDeleted());
         entity.setUserId(user.getId());
         entity.setBookId(book.getId());

@@ -1,6 +1,7 @@
 package com.library.library.controller;
 
 import com.library.library.dto.LendingDTO;
+import com.library.library.service.BookService;
 import com.library.library.service.LendingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,11 +12,24 @@ import org.springframework.web.bind.annotation.*;
 public class LendingController {
     @Autowired
     private LendingService lendingService;
+    @Autowired
+    private BookService bookService;
     @PostMapping("/{idUser}/books/{idBook}")
     public ResponseEntity<Void>bookReserve(@PathVariable Long idUser, @PathVariable Long idBook,
                                            @RequestBody LendingDTO lending)
     {
+        if (!bookService.isAvailable(idBook)){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
         lendingService.addReserve(idUser, idBook, lending);
+        bookService.descountUnit(idBook);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+    @PutMapping("/{idLending}")
+    public ResponseEntity<Void>bookReserve(@PathVariable Long idLending)
+    {
+        lendingService.returnLending(idLending);
+        deleteReserve(idLending);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
     @DeleteMapping("/{idLending}")

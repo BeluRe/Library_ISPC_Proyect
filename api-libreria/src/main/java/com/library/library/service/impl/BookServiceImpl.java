@@ -34,4 +34,17 @@ public class BookServiceImpl implements BookService {
     public void delete(Long id) {
         bookRepository.deleteById(id);
     }
+    public Boolean isAvailable(Long id) {
+        BookEntity entity = bookRepository.getReferenceById(id);
+        return entity.getAvailable()>0;
+    }
+    public void descountUnit(Long id) {
+        BookEntity entity = bookRepository.getReferenceById(id);
+        entity.setAvailable(entity.getAvailable()-1);
+        this.bookRepository.save(entity);
+    }
+    public void returnUnit(Long id) {
+        BookEntity entity = bookRepository.getReferenceById(id);
+        entity.setAvailable(entity.getAvailable()+1);
+    }
 }
