@@ -3,7 +3,6 @@ package com.library.library.entity;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
 import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -12,7 +11,6 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @SQLDelete(sql = "UPDATE lending SET deleted = true WHERE id = ? ")
-@Where(clause = "deleted=false")
 public class LendingEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)

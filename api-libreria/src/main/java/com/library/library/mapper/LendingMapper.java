@@ -73,7 +73,9 @@ public class LendingMapper {
     public List<LendingBasicDTO> lendingEntityList2BasicDTOList(List<LendingEntity> entities){
         List<LendingBasicDTO> dtos = new ArrayList<>();
         for(LendingEntity entity: entities){
-            dtos.add(this.lendingEntity2BasicDTO(entity));
+            if (entity.getDeleted()==false){ // si la reserva no se encuentra borrada de forma lógica, se agregará a la lista
+                dtos.add(this.lendingEntity2BasicDTO(entity));
+            }
         }
         return dtos;
     }

@@ -28,16 +28,22 @@ public class LendingController{
     @PutMapping("/{idLending}")
     public ResponseEntity<Void>returnReserve(@PathVariable Long idLending)
     {
-        lendingService.returnLending(idLending);
+        lendingService.returnLending(idLending, false);
         deleteReserve(idLending);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
-    @PutMapping("/{idLending}/lost")
+    @PutMapping("/lost/{idLending}")
     public ResponseEntity<Void>reserveLost(@PathVariable Long idLending)
     {
-        lendingService.lostBook(idLending);
+        lendingService.returnLending(idLending, true);
         deleteReserve(idLending);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+    @PutMapping("/renovations/{idLending}")
+    public ResponseEntity<Void>renovationLending(@PathVariable Long idLending)
+    {
+        lendingService.renovation(idLending);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
     @DeleteMapping("/{idLending}")
     public ResponseEntity<Void>deleteReserve(@PathVariable Long idLending)

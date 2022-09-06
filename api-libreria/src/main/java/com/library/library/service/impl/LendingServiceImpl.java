@@ -34,25 +34,32 @@ public class LendingServiceImpl implements LendingService {
     public void delete(Long idLending) {
     lendingRepository.deleteById(idLending);
     }
-    public void returnLending(Long idLending){
+    public void returnLending(Long idLending, Boolean lostBook){
         if (!existLending(idLending)){
             throw new RuntimeException("Doesn't exists this lending.");
         }
         LendingEntity entity = lendingRepository.getReferenceById(idLending);
         BookEntity book = bookRepository.getReferenceById(entity.getBookId());
-        bookService.returnUnit(book.getId());
+        if (lostBook){
+            bookService.lostUnit(book.getId());
+        }else{
+            bookService.returnUnit(book.getId());
+        }
         bookRepository.save(book);
         lendingRepository.save(entity);
     }
-    public void lostBook(Long idLending) {
-        if (!existLending(idLending)){
-            throw new RuntimeException("Doesn't exists this lending.");
+    public void renovation(Long idLending) {
+        if(existLending(idLending)){
+            LendingEntity entity = lendingRepository.getReferenceById(idLending);
+            if (entity.getDeleted()) {
+                entity.setDeleted(false);
+                lendingRepository.save(entity);
+            } else {
+                throw new RuntimeException("The lending is still available");
+            }
+        }else{
+            throw new RuntimeException("You never reserved this book.");
         }
-        LendingEntity entity = lendingRepository.getReferenceById(idLending);
-        BookEntity book = bookRepository.getReferenceById(entity.getBookId());
-        bookService.lostUnit(book.getId());
-        bookRepository.save(book);
-        lendingRepository.save(entity);
     }
     public Boolean existLending(Long idLending){
         return lendingRepository.existsById(idLending)?true:false;
