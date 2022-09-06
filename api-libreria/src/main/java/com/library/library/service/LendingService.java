@@ -5,5 +5,5 @@ public interface LendingService {
     void addReserve(Long idUser, Long idBook, LendingDTO dto);
     void delete(Long idLending);
     void returnLending(Long idLending);
-    void lostBook(Long id);
+    void lostBook(Long idLending);
 }

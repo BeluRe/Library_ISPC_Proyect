@@ -21,9 +21,10 @@ public class LendingServiceImpl implements LendingService {
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private BookRepository bookRepository;
-    @Autowired
     private BookService bookService;
+    @Autowired
+    private BookRepository bookRepository;
+
     public void addReserve(Long idUser, Long idBook, LendingDTO dto){
         UserEntity user = userRepository.getReferenceById(idUser);
         BookEntity book = bookRepository.getReferenceById(idBook);

@@ -32,13 +32,12 @@ public class LendingController{
         deleteReserve(idLending);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
-    //TODO terminar funcion perder libro
-    @PutMapping("/{idLending}/lost/")
+    @PutMapping("/{idLending}/lost")
     public ResponseEntity<Void>reserveLost(@PathVariable Long idLending)
     {
         lendingService.lostBook(idLending);
         deleteReserve(idLending);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
     @DeleteMapping("/{idLending}")
     public ResponseEntity<Void>deleteReserve(@PathVariable Long idLending)
