@@ -20,5 +20,6 @@ public class BookDTO {
     private Integer stock;
     private Integer available;
     private Boolean deleted;
+    private Integer lost;
     private List<LendingBasicDTO> lendings;
 }

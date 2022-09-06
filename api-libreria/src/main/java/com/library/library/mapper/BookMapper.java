@@ -22,7 +22,8 @@ public class BookMapper {
         entity.setDescription(dto.getDescription());
         entity.setCopy(dto.getCopy());
         entity.setStock(dto.getStock());
-        entity.setAvailable(dto.getAvailable());
+        entity.setAvailable(dto.getStock());
+        entity.setLost(0);
         entity.setDeleted(dto.getDeleted());
         return entity;
     }
@@ -41,6 +42,7 @@ public class BookMapper {
         dto.setStock(entity.getStock());
         dto.setAvailable(entity.getAvailable());
         dto.setDeleted(entity.getDeleted());
+        dto.setLost(entity.getLost());
         if(loadLendigns){
             List<LendingBasicDTO> dtos = lendingMapper.lendingEntityList2BasicDTOList(entity.getLendings());
             dto.setLendings(dtos);

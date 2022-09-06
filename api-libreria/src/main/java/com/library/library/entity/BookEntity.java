@@ -31,6 +31,7 @@ public class BookEntity{
     private String copy;
     private Integer stock;
     private Integer available;
+    private Integer lost;
     private Boolean deleted;
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "book")
     private List<LendingEntity> lendings = new ArrayList<>();

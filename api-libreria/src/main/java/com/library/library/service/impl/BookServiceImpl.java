@@ -38,7 +38,7 @@ public class BookServiceImpl implements BookService {
         BookEntity entity = bookRepository.getReferenceById(id);
         return entity.getAvailable()>0;
     }
-    public void descountUnit(Long id) {
+    public void discountUnit(Long id) {
         BookEntity entity = bookRepository.getReferenceById(id);
         entity.setAvailable(entity.getAvailable()-1);
         this.bookRepository.save(entity);
@@ -46,5 +46,9 @@ public class BookServiceImpl implements BookService {
     public void returnUnit(Long id) {
         BookEntity entity = bookRepository.getReferenceById(id);
         entity.setAvailable(entity.getAvailable()+1);
+    }
+    public void lostUnit(Long id) {
+        BookEntity entity = bookRepository.getReferenceById(id);
+        entity.setLost(entity.getLost()+1);
     }
 }

@@ -43,6 +43,16 @@ public class LendingServiceImpl implements LendingService {
         bookRepository.save(book);
         lendingRepository.save(entity);
     }
+    public void lostBook(Long idLending) {
+        if (!existLending(idLending)){
+            throw new RuntimeException("Doesn't exists this lending.");
+        }
+        LendingEntity entity = lendingRepository.getReferenceById(idLending);
+        BookEntity book = bookRepository.getReferenceById(entity.getBookId());
+        bookService.lostUnit(book.getId());
+        bookRepository.save(book);
+        lendingRepository.save(entity);
+    }
     public Boolean existLending(Long idLending){
         return lendingRepository.existsById(idLending)?true:false;
     }

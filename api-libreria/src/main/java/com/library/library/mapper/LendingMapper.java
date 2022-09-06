@@ -10,10 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 @Component
 public class LendingMapper {
+    private static final int MAXDAY = 15;
     public LendingEntity usboDTO2Entity(LendingDTO dto, UserEntity user, BookEntity book){
         LendingEntity entity = new LendingEntity();
         entity.setDateOut(dto.getDateOut());
-        entity.setDateReturn(entity.getDateOut().plusDays(15));
+        entity.setDateReturn(entity.getDateOut().plusDays(MAXDAY));
         entity.setDeleted(dto.getDeleted());
         entity.setUserId(user.getId());
         entity.setBookId(book.getId());

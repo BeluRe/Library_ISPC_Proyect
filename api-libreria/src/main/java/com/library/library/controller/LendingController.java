@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("lendings")
-public class LendingController {
+public class LendingController{
     @Autowired
     private LendingService lendingService;
     @Autowired
@@ -22,13 +22,21 @@ public class LendingController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
         lendingService.addReserve(idUser, idBook, lending);
-        bookService.descountUnit(idBook);
+        bookService.discountUnit(idBook);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
     @PutMapping("/{idLending}")
-    public ResponseEntity<Void>bookReserve(@PathVariable Long idLending)
+    public ResponseEntity<Void>returnReserve(@PathVariable Long idLending)
     {
         lendingService.returnLending(idLending);
+        deleteReserve(idLending);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+    //TODO terminar funcion perder libro
+    @PutMapping("/{idLending}/lost/")
+    public ResponseEntity<Void>reserveLost(@PathVariable Long idLending)
+    {
+        lendingService.lostBook(idLending);
         deleteReserve(idLending);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

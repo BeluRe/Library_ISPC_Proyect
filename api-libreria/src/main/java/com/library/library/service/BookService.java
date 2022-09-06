@@ -7,6 +7,7 @@ public interface BookService {
     BookDTO update(Long id, BookDTO book);
     void delete (Long id);
     Boolean isAvailable(Long id);
-    void descountUnit(Long id);
+    void discountUnit(Long id);
     void returnUnit(Long id);
+    void lostUnit(Long id);
 }
