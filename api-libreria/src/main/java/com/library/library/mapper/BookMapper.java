@@ -5,6 +5,8 @@ import com.library.library.dto.LendingBasicDTO;
 import com.library.library.entity.BookEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
 import java.util.List;
 @Component
 public class BookMapper {
@@ -63,5 +65,12 @@ public class BookMapper {
         entity.setAvailable(dto.getAvailable());
         entity.setDeleted(dto.getDeleted());
         return entity;
+    }
+    public List<BookDTO> bookEntityList2DTOList( List<BookEntity> entities){
+        List<BookDTO> dtos = new ArrayList<>();
+        for (BookEntity entity: entities){
+            dtos.add(bookEntity2DTO(entity, false));
+        }
+        return dtos;
     }
 }

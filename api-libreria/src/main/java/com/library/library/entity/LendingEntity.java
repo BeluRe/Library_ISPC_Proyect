@@ -26,6 +26,9 @@ public class LendingEntity{
     private Long userId;
     @Column(name="book_id", nullable = false)
     private Long bookId;
+
+    //TODO agregar columna de renovaciones para saber cuantas veces se renovo una reserva.
+
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "user_id", insertable = false, updatable = false)
     private UserEntity user;

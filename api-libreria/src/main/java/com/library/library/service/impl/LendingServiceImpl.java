@@ -37,25 +37,41 @@ public class LendingServiceImpl implements LendingService {
     public void returnLending(Long idLending, Boolean lostBook){
         if (!existLending(idLending)){
             throw new RuntimeException("Doesn't exists this lending.");
-        }
-        LendingEntity entity = lendingRepository.getReferenceById(idLending);
-        BookEntity book = bookRepository.getReferenceById(entity.getBookId());
-        if (lostBook){
-            bookService.lostUnit(book.getId());
         }else{
-            bookService.returnUnit(book.getId());
+            LendingEntity entity = lendingRepository.getReferenceById(idLending);
+            BookEntity book = bookRepository.getReferenceById(entity.getBookId());
+            if(!entity.getDeleted()) {
+                if (lostBook) {
+                    if (book.getLost() < book.getStock()) {
+                        bookService.lostUnit(book.getId());
+                    } else {
+                        throw new RuntimeException("Complete Stock.");
+                    }
+                } else {
+                    if(book.getAvailable() < book.getStock()){
+                        bookService.returnUnit(book.getId());
+                    }else{
+                        throw new RuntimeException("Complete Stock.");
+                    }
+                }
+                bookRepository.save(book);
+                lendingRepository.save(entity);
+            }else{
+                throw new RuntimeException("Lending ended.");
+            }
         }
-        bookRepository.save(book);
-        lendingRepository.save(entity);
     }
     public void renovation(Long idLending) {
         if(existLending(idLending)){
             LendingEntity entity = lendingRepository.getReferenceById(idLending);
-            if (entity.getDeleted()) {
+            BookEntity book = bookRepository.getReferenceById(entity.getBookId());
+            if (entity.getDeleted() && book.getAvailable()> 0 && book.getAvailable()<=book.getStock()) {
                 entity.setDeleted(false);
+                book.setAvailable(book.getAvailable()-1);
+                bookRepository.save(book);
                 lendingRepository.save(entity);
             } else {
-                throw new RuntimeException("The lending is still available");
+                throw new RuntimeException("The lending is still available or book's stock is empty.");
             }
         }else{
             throw new RuntimeException("You never reserved this book.");

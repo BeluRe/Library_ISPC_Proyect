@@ -25,7 +25,7 @@ public class LendingController{
         bookService.discountUnit(idBook);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
-    @PutMapping("/{idLending}")
+    @PutMapping("/returned/{idLending}")
     public ResponseEntity<Void>returnReserve(@PathVariable Long idLending)
     {
         lendingService.returnLending(idLending, false);
