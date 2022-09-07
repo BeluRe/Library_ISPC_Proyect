@@ -16,9 +16,8 @@ public class UserMapper {
         entity.setLastname(dto.getLastname());
         entity.setTel(dto.getTel());
         entity.setAddress(dto.getAddress());
-        entity.setFault(dto.getFault());
-        entity.setPriceFault(dto.getPriceFault());
-        entity.setDeleted(dto.getDeleted());
+        entity.setFault(0.0);
+        entity.setDeleted(false);
         return entity;
     }
     public UserDTO userEntity2DTO(UserEntity entity, Boolean loadLendigns){
@@ -29,7 +28,6 @@ public class UserMapper {
         dto.setTel(entity.getTel());
         dto.setAddress(entity.getAddress());
         dto.setFault(entity.getFault());
-        dto.setPriceFault(entity.getPriceFault());
         dto.setDeleted(entity.getDeleted());
         if(loadLendigns) {
             List<LendingBasicDTO> dtos = lendingMapper.lendingEntityList2BasicDTOList(entity.getLendings());
@@ -42,9 +40,6 @@ public class UserMapper {
         entity.setLastname(dto.getLastname());
         entity.setTel(dto.getTel());
         entity.setAddress(dto.getAddress());
-        entity.setFault(dto.getFault());
-        entity.setPriceFault(dto.getPriceFault());
-        entity.setDeleted(dto.getDeleted());
         return entity;
     }
 }

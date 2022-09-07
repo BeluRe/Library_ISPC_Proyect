@@ -64,9 +64,7 @@ public class BookMapper {
         entity.setDescription(dto.getDescription());
         entity.setCopy(dto.getCopy());
         entity.setStock(dto.getStock());
-        entity.setRenovation(dto.getRenovation());
         entity.setAvailable(dto.getAvailable());
-        entity.setDeleted(dto.getDeleted());
         return entity;
     }
     public List<BookDTO> bookEntityList2DTOList( List<BookEntity> entities){

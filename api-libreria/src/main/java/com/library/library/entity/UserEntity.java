@@ -22,9 +22,7 @@ public class UserEntity{
     private String lastname;
     private String address;
     private String tel;
-    private Integer fault;
-    @Column(name = "price_fault")
-    private Integer priceFault;
+    private Double fault;
     private Boolean deleted;
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
     private List<LendingEntity> lendings = new ArrayList<>();

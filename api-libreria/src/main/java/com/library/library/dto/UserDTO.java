@@ -11,8 +11,7 @@ public class UserDTO {
     private String lastname;
     private String address;
     private String tel;
-    private Integer fault;
-    private Integer priceFault;
+    private Double fault;
     private Boolean deleted;
     private List<LendingBasicDTO> lendings;
 }
