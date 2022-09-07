@@ -12,6 +12,8 @@ import com.library.library.service.BookService;
 import com.library.library.service.LendingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.time.LocalDate;
+
 @Service
 public class LendingServiceImpl implements LendingService {
     @Autowired
@@ -67,6 +69,8 @@ public class LendingServiceImpl implements LendingService {
             BookEntity book = bookRepository.getReferenceById(entity.getBookId());
             if (entity.getDeleted() && book.getAvailable()> 0 && book.getAvailable()<=book.getStock()) {
                 entity.setDeleted(false);
+                entity.setDateOut(LocalDate.now());
+                entity.setDateReturn(entity.getDateOut().plusDays(15));
                 book.setAvailable(book.getAvailable()-1);
                 book.setRenovation(book.getRenovation()+1);
                 bookRepository.save(book);
