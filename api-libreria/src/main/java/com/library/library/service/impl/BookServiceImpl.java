@@ -7,9 +7,7 @@ import com.library.library.repository.BookRepository;
 import com.library.library.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
-
 @Service
 public class BookServiceImpl implements BookService {
     @Autowired
@@ -21,7 +19,6 @@ public class BookServiceImpl implements BookService {
         List<BookDTO> dtos = bookMapper.bookEntityList2DTOList(entities);
         return dtos;
     }
-
     public BookDTO save(BookDTO dto) {
         BookEntity entity = bookMapper.bookDTO2Entity(dto);
         BookEntity entitySaved = bookRepository.save(entity);

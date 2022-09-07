@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-
 @Service
 public class LendingServiceImpl implements LendingService {
     @Autowired
@@ -28,10 +27,8 @@ public class LendingServiceImpl implements LendingService {
     private BookService bookService;
     @Autowired
     private BookRepository bookRepository;
-
     private static final Integer LOSTFAULT = 500;
     private static final Integer XDAYFAULT = 20;
-
     public void addReserve(Long idUser, Long idBook, LendingDTO dto){
         UserEntity user = userRepository.getReferenceById(idUser);
         BookEntity book = bookRepository.getReferenceById(idBook);

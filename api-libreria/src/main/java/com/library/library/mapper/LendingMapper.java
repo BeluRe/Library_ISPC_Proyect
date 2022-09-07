@@ -6,13 +6,12 @@ import com.library.library.entity.BookEntity;
 import com.library.library.entity.LendingEntity;
 import com.library.library.entity.UserEntity;
 import org.springframework.stereotype.Component;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 @Component
 public class LendingMapper {
-    private static final int MAXDAY = 15;
+    //private static final int MAXDAY = 15;
     public LendingEntity usboDTO2Entity(LendingDTO dto, UserEntity user, BookEntity book){
         LendingEntity entity = new LendingEntity();
         entity.setDateOut(LocalDate.now());
