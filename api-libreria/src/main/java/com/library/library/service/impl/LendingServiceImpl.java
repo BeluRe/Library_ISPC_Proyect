@@ -68,6 +68,7 @@ public class LendingServiceImpl implements LendingService {
             if (entity.getDeleted() && book.getAvailable()> 0 && book.getAvailable()<=book.getStock()) {
                 entity.setDeleted(false);
                 book.setAvailable(book.getAvailable()-1);
+                book.setRenovation(book.getRenovation()+1);
                 bookRepository.save(book);
                 lendingRepository.save(entity);
             } else {

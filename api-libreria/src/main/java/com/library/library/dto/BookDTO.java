@@ -21,5 +21,6 @@ public class BookDTO {
     private Integer available;
     private Boolean deleted;
     private Integer lost;
+    private Integer renovation;
     private List<LendingBasicDTO> lendings;
 }

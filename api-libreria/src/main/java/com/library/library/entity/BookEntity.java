@@ -33,6 +33,7 @@ public class BookEntity{
     private Integer available;
     private Integer lost;
     private Boolean deleted;
+    private Integer renovation;
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "book")
     private List<LendingEntity> lendings = new ArrayList<>();
 }
